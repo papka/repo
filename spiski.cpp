@@ -8,9 +8,98 @@
 using namespace std;
 
 
+struct Elem1
+{int data;
+string name;
+Elem1* next; //ukazatel na sleduysiy
+};
+class odnonaprav{
+public: 
+	Elem1*first; //ukazatel na pervyi
+	odnonaprav(); //konstruktor
+	void addfront1();
+	bool Print1();
+	//void addback1();
+	//bool delbydata1();
+	//bool sort1();
+	bool addser1();
+	//bool del_all1();
+};
+odnonaprav::odnonaprav(){
+	first=NULL;}
+void odnonaprav::addfront1()// dodavlenie v nachalo
+{int d;
+cout<<"Vvedite id elementa"<<endl;
+cin>>d;
+string nam;
+cout<<"Vvedite pole elementa"<<endl;
+cin>>nam;
+
+if(first==NULL){ //esli spisok pust
+	first=new Elem1;
+	first->next=first;
+	first->data=d;
+	first->name=nam;
+	return;
+}
+Elem1* last=first;
+while(last->next!=first)
+	last=last->next;
+Elem1* n= new Elem1;
+n->next=first;
+first=n;
+last->next=first;
+first->data=d;
+first->name=nam;
+return;
+}
+
+bool odnonaprav::Print1() //vyvod na ekran
+{if(first==NULL){
+	cout<<"pustoi spisok"<<endl;
+	return false;
+}
+	Elem1*q=first;
+	do{
+		cout<<q->data<<"\t"<<q->name<<endl;
+		q=q->next;}while(q!=first);
+cout<<endl<<endl;
+return true;
+}
+
+
+bool odnonaprav::addser1()//dovavlenie posle ukazannogo id
+{if(first==NULL){ //esli spisok pust
+	cout<<"pustoi spisok";
+	return false;}
+Elem1* last=first;
+cout<<"Vvedite id dlya poiska"<<endl; //ishcem id, posle kotorogo dobavim element
+int search;
+cin >>search;
+while(last->next!=first)
+	last=last->next;
+Elem1* cur=first;
+while (cur->data!=search){
+	cur=cur->next;}
+Elem1* n= new Elem1;
+int d;
+cout<<"Vvedite indeks novogo elementa"<<endl;
+cin>>d;
+string nam;
+cout<<"Vvedite pole name"<<endl;
+cin>>nam;
+n->name=nam;
+n->data=d;
+if(cur->data==search)
+{
+	n->next=cur->next;
+	cur->next=n;
+	return true;}
+return true;}
 
 int _tmain(int argc, _TCHAR* argv[])
-{
+{ 
+	odnonaprav *tes = new odnonaprav;
 int const k=6;
 int selected_item=0;
 string menu [k];
@@ -78,17 +167,17 @@ for(int i=0;i<k;i++){
 		if(i==k-1)
 			cout<<" 0. "<<menu[i];
 		else cout<<" "<<i+1<<". "<<menu[i]<<endl;
-		}
-
+		} 
+		
 
 switch(getch()) {
-case 72://ââåðõ
+case 72://vverh
 	selected_item --;
 	if (selected_item<0){
 		selected_item=k-1;
 	}
 	break;
-	case 80://âíèç
+	case 80://vniz
 		if (selected_item==k-1){
 		selected_item=-1;
 		}
@@ -98,7 +187,7 @@ case 72://ââåðõ
 		/*system ("cls");
 		cout<<"Exit? (y/n)";
 		cin>>sure;
-		if (sure=='y') {
+		if (sure=='y') {	
 			exit(0);
 		}
 		else if (sure=='n') {
@@ -116,17 +205,17 @@ for(int i=0;i<ex;i++){
 		if(i==ex-1)
 			cout<<" 2. "<<Exit[i];
 		else cout<<" "<<i+1<<". "<<Exit[i]<<endl;
-		}
-
+		} 
+		
 
 switch(getch()) {
-case 72://ââåðõ
+case 72://vverh
 	selected_item6 --;
 	if (selected_item6<0){
 		selected_item6=ex-1;
 	}
 	break;
-	case 80://âíèç
+	case 80://vniz
 		if (selected_item6==ex-1){
 		selected_item6=-1;
 		}
@@ -136,7 +225,7 @@ case 72://ââåðõ
 		/*system ("cls");
 		cout<<"Exit? (y/n)";
 		cin>>sure;
-		if (sure=='y') {
+		if (sure=='y') {	
 			exit(0);
 		}
 		else if (sure=='n') {
@@ -154,17 +243,17 @@ break;
 	break;
 	}
 	break;
-
+	
 	case 49:
 		exit(0);
 		break;
 	case 50:
 		goto m;
 		break;
-
+	
 } }
 break;
-	case 13://Enter
+	case 13://Enter 
 	switch(selected_item) {
 	case 0: //ïåðâîå ïîäìåíþ
 		//system("cls");
@@ -173,7 +262,7 @@ break;
 		/*for(int i=0; i<podmenu1;i++) {
 			cout<<endl<<i+1<<" "<<pm1[i];
 		} */
-
+		
 		while(true) {
 			system("cls");
 			cout<< "menu raboty s failami"<<endl;
@@ -184,10 +273,10 @@ for(int i=0;i<podmenu1;i++){
 		else {
 		cout<<"  ";
 		}
-
+		
 		if(i==podmenu1-1){
 			cout<<" 0. "<<pm1[i];}
-		else cout<<" "<<i+1<<". "<<pm1[i]<<endl;
+		else cout<<" "<<i+1<<". "<<pm1[i]<<endl; 
 }
 		switch(getch()) {
 			case 72://ââåðõ
@@ -196,18 +285,18 @@ for(int i=0;i<podmenu1;i++){
 		selected_item1=podmenu1-1;
 	}
 	break;
-
-	case 80://âíèç
+	
+	case 80://vniz
 		if (selected_item1==podmenu1-1){
 		selected_item1=-1;
 		}
 		selected_item1++;
-
+		
 	break;
 	case 27:
 		/*cout<<"Exit? (y/n)";
 		cin>>sure;
-		if (sure=='y') {
+		if (sure=='y') {	
 			exit(0);
 		}
 		else if (sure=='n') {
@@ -224,8 +313,8 @@ for(int i=0;i<podmenu1;i++){
 			goto m;
 		/*cout<<"back? (y/n)";
 		cin>>sure;
-		if (sure=='y') {
-
+		if (sure=='y') {	
+			
 			exit(0);
 		}
 		else if (sure=='n') {
@@ -234,27 +323,27 @@ for(int i=0;i<podmenu1;i++){
 	}
 	break;
 	//ïî íîìåðàì
-			case 49://1
+			case 49://1 
 		selected_item1=0;
 		break;
 	case 50://2
 		selected_item1=1;
-		break;
-
+		break; 
+		
 	case 48:
 		selected_item1=2;
 		/*cout<<"back? (y/n)";
 		cin>>sure;
-		if (sure=='y') {
+		if (sure=='y') {	
 			return 0;
 		}
 		else if (sure=='n') {
 		} */
-			goto m;
+			goto m;	
 		} }
 
 
-	case 1://ïîäìåíþ íîìåð 2
+	case 1://po klavishe 2
 		while(true) {
 			system("cls");
 			cout<< "menu prosmotra"<<endl;
@@ -265,48 +354,52 @@ for(int i=0;i<podmenu2;i++){
 		else {
 		cout<<"  ";
 		}
-
+		
 		if(i==podmenu2-1){
 			cout<<" 0. "<<pm2[i];}
-		else cout<<" "<<i+1<<". "<<pm2[i]<<endl;
+		else cout<<" "<<i+1<<". "<<pm2[i]<<endl; 
 }
 		switch(getch()) {
-			case 72://ââåðõ
+			case 72://vniz
 	selected_item2 --;
 	if (selected_item2<0){
 		selected_item2=podmenu2-1;
 	}
 	break;
-
-	case 80://âíèç
+	
+	case 80://vverh
 		if (selected_item2==podmenu2-1){
 		selected_item2=-1;
 		}
 		selected_item2++;
-
+		
 	break;
 	case 27:
 		/*cout<<"Exit? (y/n)";
 		cin>>sure;
-		if (sure=='y') {
+		if (sure=='y') {	
 			exit(0);
 		}
 		else if (sure=='n') {
 		} */
 		goto m;
 		break;
-
+		
 	case 13:
 		switch(selected_item2) {
 		case 0:
+			system("cls");
+			tes->Print1();
+			getchar();
+			goto m;
 			break;
 		case 1:
 			break;
 		case 2:
 			/*cout<<"back? (y/n)";
 		cin>>sure;
-		if (sure=='y') {
-
+		if (sure=='y') {	
+			
 			exit(0);
 		}
 		else if (sure=='n') {
@@ -320,22 +413,22 @@ for(int i=0;i<podmenu2;i++){
 		break;
 	case 50://2
 		selected_item2=1;
-		break;
-
+		break; 
+		
 	case 48:
 		selected_item2=2;
 		/*cout<<"back? (y/n)";
 		cin>>sure;
-		if (sure=='y') {
+		if (sure=='y') {	
 			return 0;
 		}
 		else if (sure=='n') {
 		} */
 		goto m;
-
+				
 		} }
-		break;
-	case 2://ïîäìåíþ íîìåð 3
+		break; 
+	case 2://po klavishe 3
 			while(true) {
 			system("cls");
 			cout<< "menu dobavleniya elementov"<<endl;
@@ -346,10 +439,10 @@ for(int i=0;i<podmenu3;i++){
 		else {
 		cout<<"  ";
 		}
-
+		
 		if(i==podmenu3-1){
 			cout<<" 0. "<<pm3[i];}
-		else cout<<" "<<i+1<<". "<<pm3[i]<<endl;
+		else cout<<" "<<i+1<<". "<<pm3[i]<<endl; 
 }
 		switch(getch()) {
 			case 72://ââåðõ
@@ -358,18 +451,18 @@ for(int i=0;i<podmenu3;i++){
 		selected_item3=podmenu3-1;
 	}
 	break;
-
-	case 80://âíèç
+	
+	case 80://vverh
 		if (selected_item3==podmenu3-1){
 		selected_item3=-1;
 		}
 		selected_item3++;
-
+		
 	break;
 	case 27:
 		/*cout<<"Exit? (y/n)";
 		cin>>sure;
-		if (sure=='y') {
+		if (sure=='y') {	
 			exit(0);
 		}
 		else if (sure=='n') {
@@ -379,16 +472,24 @@ for(int i=0;i<podmenu3;i++){
 	case 13:
 		switch(selected_item3) {
 		case 0:
+			system("cls");
+			tes->addfront1();
+			getchar();
+			goto m;
 			break;
 		case 1:
 			break;
 		case 2:
+			system("cls");
+			tes->addser1();
+			getchar();
+			goto m;
 			break;
 		case 3:
 			/*cout<<"back? (y/n)";
 		cin>>sure;
-		if (sure=='y') {
-
+		if (sure=='y') {	
+			
 			exit(0);
 		}
 		else if (sure=='n') {
@@ -402,25 +503,25 @@ for(int i=0;i<podmenu3;i++){
 		break;
 	case 50://2
 		selected_item3=1;
-		break;
+		break; 
 	case 51:
 		selected_item3=2;
 		break;
-
+		
 	case 48:
 		selected_item3=3;
 		/*cout<<"back? (y/n)";
 		cin>>sure;
-		if (sure=='y') {
+		if (sure=='y') {	
 			return 0;
 		}
 		else if (sure=='n') {
 		}*/
 		goto m;
-
+				
 		} }
-		break;
-	case 3://ïîäìåíþ íîìåð 4
+		break; 
+	case 3://po klavishe 4
 			while(true) {
 			system("cls");
 			cout<< "menu udaleniya"<<endl;
@@ -431,10 +532,10 @@ for(int i=0;i<podmenu4;i++){
 		else {
 		cout<<"  ";
 		}
-
+		
 		if(i==podmenu4-1){
 			cout<<" 0. "<<pm4[i];}
-		else cout<<" "<<i+1<<". "<<pm4[i]<<endl;
+		else cout<<" "<<i+1<<". "<<pm4[i]<<endl; 
 }
 		switch(getch()) {
 			case 72://ââåðõ
@@ -443,18 +544,18 @@ for(int i=0;i<podmenu4;i++){
 		selected_item4=podmenu4-1;
 	}
 	break;
-
-	case 80://âíèç
+	
+	case 80://vverh
 		if (selected_item4==podmenu4-1){
 		selected_item4=-1;
 		}
 		selected_item4++;
-
+		
 	break;
 		case 27:
 		/*cout<<"Exit? (y/n)";
 		cin>>sure;
-		if (sure=='y') {
+		if (sure=='y') {	
 			exit(0);
 		}
 		else if (sure=='n') {
@@ -470,8 +571,8 @@ for(int i=0;i<podmenu4;i++){
 		case 2:
 			/*cout<<"back? (y/n)";
 		cin>>sure;
-		if (sure=='y') {
-
+		if (sure=='y') {	
+			
 			exit(0);
 		}
 		else if (sure=='n') {
@@ -485,13 +586,13 @@ for(int i=0;i<podmenu4;i++){
 		break;
 	case 50://2
 		selected_item4=1;
-		break;
-
+		break; 
+		
 	case 48:
 		selected_item4=2;
 		/*cout<<"back? (y/n)";
 		cin>>sure;
-		if (sure=='y') {
+		if (sure=='y') {	
 			return 0;
 		}
 		else if (sure=='n') {
@@ -499,9 +600,9 @@ for(int i=0;i<podmenu4;i++){
 			*/
 		goto m;
 		} }
-		break;
+		break; 
 
-	case 4://ïîäìåíþ íîìåð 5
+	case 4://po klavishe 5
 			while(true) {
 			system("cls");
 			cout<< "menu redaktirovaniya"<<endl;
@@ -512,10 +613,10 @@ for(int i=0;i<podmenu5;i++){
 		else {
 		cout<<"  ";
 		}
-
+		
 		if(i==podmenu5-1){
 			cout<<" 0. "<<pm5[i];}
-		else cout<<" "<<i+1<<". "<<pm5[i]<<endl;
+		else cout<<" "<<i+1<<". "<<pm5[i]<<endl; 
 }
 		switch(getch()) {
 			case 72://ââåðõ
@@ -524,18 +625,18 @@ for(int i=0;i<podmenu5;i++){
 		selected_item5=podmenu5-1;
 	}
 	break;
-
-	case 80://âíèç
+	
+	case 80://vverh
 		if (selected_item5==podmenu5-1){
 		selected_item5=-1;
 		}
 		selected_item5++;
-
+		
 	break;
 		case 27:
 		/*cout<<"Exit? (y/n)";
 		cin>>sure;
-		if (sure=='y') {
+		if (sure=='y') {	
 			exit(0);
 		}
 		else if (sure=='n') {
@@ -551,8 +652,8 @@ for(int i=0;i<podmenu5;i++){
 		case 2:
 		/*cout<<"back? (y/n)";
 		cin>>sure;
-		if (sure=='y') {
-
+		if (sure=='y') {	
+			
 			exit(0);
 		}
 		else if (sure=='n') {
@@ -566,27 +667,27 @@ for(int i=0;i<podmenu5;i++){
 		break;
 	case 50://2
 		selected_item5=1;
-		break;
-
+		break; 
+		
 	case 48:
 		selected_item5=2;
 		/*cout<<"back? (y/n)";
 		cin>>sure;
-		if (sure=='y') {
+		if (sure=='y') {	
 			return 0;
 		}
 		else if (sure=='n') {
 		} */
 		goto m;
-
+				
 		} }
-		break;
-	case 5://âûõîä
+		break; 
+	case 5://vyhod
 		//system("cls");
 		/*cout<<"Exit?"<<endl;
 		cin>>sure;
-		if (sure=='y') {
-
+		if (sure=='y') {	
+			
 			exit(0);
 		}
 		else if (sure=='n') {
@@ -604,17 +705,17 @@ for(int i=0;i<ex;i++){
 		if(i==ex-1)
 			cout<<" 2. "<<Exit[i];
 		else cout<<" "<<i+1<<". "<<Exit[i]<<endl;
-		}
-
+		} 
+		
 
 switch(getch()) {
-case 72://ââåðõ
+case 72://vniz
 	selected_item6 --;
 	if (selected_item6<0){
 		selected_item6=ex-1;
 	}
 	break;
-	case 80://âíèç
+	case 80://vverh
 		if (selected_item6==ex-1){
 		selected_item6=-1;
 		}
@@ -624,7 +725,7 @@ case 72://ââåðõ
 		/*system ("cls");
 		cout<<"Exit? (y/n)";
 		cin>>sure;
-		if (sure=='y') {
+		if (sure=='y') {	
 			exit(0);
 		}
 		else if (sure=='n') {
@@ -642,14 +743,14 @@ break;
 	break;
 	}
 	break;
-
+	
 	case 49:
 		exit(0);
 		break;
 	case 50:
 		goto m;
 		break;
-
+	
 } } }
 	case 49://1
 		selected_item=0;
@@ -666,12 +767,12 @@ break;
 	case 53://5
 		selected_item=4;
 		break;
-	case 48://
+	case 48://0
 		//system("cls");
 		selected_item=5;
 		/*cout<<"Exit? (y/n)";
 		cin>>sure;
-		if (sure=='y') {
+		if (sure=='y') {	
 			exit(0);
 		}
 		else if (sure=='n') {
@@ -689,17 +790,17 @@ for(int i=0;i<ex;i++){
 		if(i==ex-1)
 			cout<<" 2. "<<Exit[i];
 		else cout<<" "<<i+1<<". "<<Exit[i]<<endl;
-		}
-
+		} 
+		
 
 switch(getch()) {
-case 72://ââåðõ
+case 72://vniz
 	selected_item6 --;
 	if (selected_item6<0){
 		selected_item6=ex-1;
 	}
 	break;
-	case 80://âíèç
+	case 80://vverh
 		if (selected_item6==ex-1){
 		selected_item6=-1;
 		}
@@ -709,7 +810,7 @@ case 72://ââåðõ
 		/*system ("cls");
 		cout<<"Exit? (y/n)";
 		cin>>sure;
-		if (sure=='y') {
+		if (sure=='y') {	
 			exit(0);
 		}
 		else if (sure=='n') {
@@ -727,14 +828,14 @@ break;
 	break;
 	}
 	break;
-
+	
 	case 49:
 		exit(0);
 		break;
 	case 50:
 		goto m;
 		break;
-
+	
 } } }
 
-}}
+}}  
